@@ -1,0 +1,11 @@
+body {
+    background-image: url("https://i1.wp.com/www.homemakershabitat.com/wp-content/uploads/2017/04/Pasta-Pomodoro-5.jpg?fit=1600%2C1600");
+    background-size: 1600px;
+    width: 400px;
+    height: 100px;
+}
+
+h1 {
+  font-family: "Courier New", Courier;
+  color: black;
+}
