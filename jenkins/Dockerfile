@@ -6,6 +6,12 @@ COPY --chown=jenkins:jenkins "jenkins_casc.yml" "${CASC_JENKINS_CONFIG}/jenkins.
 COPY --chown=jenkins:jenkins "plugins.txt" "/usr/share/jenkins/plugins.txt"
 
 USER root
+
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+
 RUN chown -R jenkins /var/jenkins_home
 USER jenkins:jenkins
 
