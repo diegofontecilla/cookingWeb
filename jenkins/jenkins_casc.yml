@@ -27,7 +27,7 @@ tool:
 
 jobs:
   - script: >
-      multibranchPipelineJob('cookingapp') {
+      pipelineJob('cookingapp') {
           definition {
               cpsScm {
                   scriptPath 'jenkins/Jenkinsfile'
