@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                sh 'npm install'
+                sh './jenkins/scripts/build.sh'
             }
         }
     }

@@ -16,8 +16,16 @@
 
 ## Configure the `cookingapp` job manually
 
-* on the jenkins UI, click on the `cookingapp` job
-* apparently, nothing to do here
+* on the jenkins UI, click on the `cookingapp` job and then on `configure`
+* check the box `GitHub project` and paste the url of the git repo
+* under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
+
+## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
+
+* on the git repo, go to settings, webhooks and add a new webhook
+* if running jenkins container on localhost, follow this instructions:
+`https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/`
+  * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
 
 ## TODO
 
