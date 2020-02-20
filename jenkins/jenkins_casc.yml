@@ -1,0 +1,47 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  mode: NORMAL
+  numExecutors: 1
+  quietPeriod: 5
+  securityRealm:
+    local:
+      allowsSignup: false
+  remotingSecurity:
+    enabled: true
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+
+unclassified:
+  location:
+    url: https://ec09ea52.ngrok.io/
+
+tool:
+  git:
+    installations:
+      - home: "git"
+        name: "Default"
+
+jobs:
+  - script: >
+      multibranchPipelineJob('cookingapp') {
+          definition {
+              cpsScm {
+                  scriptPath 'jenkins/Jenkinsfile'
+                  scm {
+                      git {
+                          remote
+                            {
+                              url 'https://github.com/diegofontecilla/cookingWeb'
+                            }
+                          branch '*/master'
+                          extensions {}
+                      }
+                  }
+              }
+          }
+      }
+

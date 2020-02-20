@@ -1,0 +1,14 @@
+FROM jenkins/jenkins:lts
+
+ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/casc_configs
+COPY --chown=jenkins:jenkins "jenkins_casc.yml" "${CASC_JENKINS_CONFIG}/jenkins.yaml"
+
+COPY --chown=jenkins:jenkins "plugins.txt" "/usr/share/jenkins/plugins.txt"
+
+USER root
+RUN chown -R jenkins /var/jenkins_home
+USER jenkins:jenkins
+
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
+
+
