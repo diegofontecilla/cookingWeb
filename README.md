@@ -31,4 +31,3 @@
 
 * [x] on jenkins/plugins.txt, pin the nodejs plugin
 
-* testing
