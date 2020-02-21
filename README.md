@@ -26,6 +26,7 @@
 * if running jenkins container on localhost, follow this instructions:
 `https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/`
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
+* you nedd to run the first build manually
 
 ## TODO
 

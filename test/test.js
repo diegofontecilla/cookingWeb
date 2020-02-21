@@ -8,4 +8,4 @@
 //  });
 // });
 
-console.log("Temporary test")
+console.log("Temporary test is working fine!")
