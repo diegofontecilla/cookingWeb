@@ -16,5 +16,3 @@ RUN chown -R jenkins /var/jenkins_home
 USER jenkins:jenkins
 
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
-
-

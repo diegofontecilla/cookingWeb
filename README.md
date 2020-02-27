@@ -31,4 +31,5 @@
 ## TODO
 
 * [x] on jenkins/plugins.txt, pin the nodejs plugin
-
+* [x] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dcokerfile but it does not work.
+* [x] in the last step of the pipeline, save a artifact and store it in an artifact repo

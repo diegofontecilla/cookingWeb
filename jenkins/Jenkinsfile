@@ -1,17 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
-            steps {
-                echo 'Running build automation'
-                sh 'npm install'
-            }
+        stage('Build image') {
+            app = docker.build("fontecilla/cookingapp")
         }
-        stage('Test') {
-            steps {
-                sh 'npm start'
-                sh 'npm test'
-            }
+        stage('Push image') {
+            docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
 }
