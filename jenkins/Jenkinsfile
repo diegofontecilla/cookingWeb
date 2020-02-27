@@ -1,11 +1,8 @@
 pipeline {
-    agent any
-    stages {
-        stage('Smoke test') {
-              steps {
-                sh 'docker-entrypoint.sh'
-            }
-        }
+    agent {
+        docker { image 'node:7-alpine' }
+    }
+    // stages {
         // stage('Build image') {
         //     app = docker.build("fontecilla/cookingapp")
         // }
@@ -14,5 +11,5 @@ pipeline {
         //     app.push("${env.BUILD_NUMBER}")
         //     app.push("latest")
         // }
-    }
+    // }
 }
