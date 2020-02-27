@@ -1,13 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Build image') {
-            app = docker.build("fontecilla/cookingapp")
+        stage('Smoke test') {
+              steps {
+                sh 'docker-entrypoint.sh'
+            }
         }
-        stage('Push image') {
-            docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+        // stage('Build image') {
+        //     app = docker.build("fontecilla/cookingapp")
+        // }
+        // stage('Push image') {
+        //     docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
+        //     app.push("${env.BUILD_NUMBER}")
+        //     app.push("latest")
+        // }
     }
 }
