@@ -1,16 +1,24 @@
 pipeline {
-    agent {
-        docker { image 'fontecilla/cookingapp:latest' }
-    }
+    agent any
+
     stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
         stage('Test') {
             steps {
-                echo 'hello mate'
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
 }
-
 
 
 
