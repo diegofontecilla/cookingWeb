@@ -1,15 +1,33 @@
 pipeline {
     agent {
-        docker { image 'node:7-alpine' }
+        docker { image 'fontecilla/cookingapp:latest' }
     }
-    // stages {
-        // stage('Build image') {
-        //     app = docker.build("fontecilla/cookingapp")
-        // }
-        // stage('Push image') {
-        //     docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
-        //     app.push("${env.BUILD_NUMBER}")
-        //     app.push("latest")
-        // }
-    // }
+    stages {
+        stage('Test') {
+            steps {
+                echo 'hello mate'
+            }
+        }
+    }
 }
+
+
+
+
+// pipeline {
+//     agent any
+//     agent {
+//         docker { image 'fontecilla/cookingapp' }
+//     }
+//     stages {
+//         stage('Build image') {
+//             app = docker.build("fontecilla/cookingapp")
+//             echo 'hello world'
+//         }
+//         stage('Push image') {
+//             docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
+//             app.push("${env.BUILD_NUMBER}")
+//             app.push("latest")
+//         }
+//     }
+// }

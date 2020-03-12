@@ -10,9 +10,15 @@
 
 ## To build jenkins image and deploy jenkins in docker container
 
-* run:
+* from jenkins/ run:
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
+
+## To build node image manually and deploy the cookingapp
+
+* from root directory run:
+  * `docker build -t fontecilla/cookingapp .`
+  * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
 
 ## Configure the `cookingapp` job manually
 
@@ -31,5 +37,5 @@
 ## TODO
 
 * [x] on jenkins/plugins.txt, pin the nodejs plugin
-* [x] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dcokerfile but it does not work.
+* [x] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dockerfile but it does not work.
 * [x] in the last step of the pipeline, save a artifact and store it in an artifact repo
