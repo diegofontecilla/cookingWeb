@@ -10,3 +10,6 @@
 * ro
 * feli
 * andi
+* dany
+* bonnie
+* cami
