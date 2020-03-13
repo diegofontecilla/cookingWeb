@@ -7,3 +7,6 @@
 * mami
 * javi
 * mati
+* ro
+* feli
+* andi
