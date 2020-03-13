@@ -5,5 +5,3 @@
 * romeo
 * rita
 * mami
-* javi
-* mati
