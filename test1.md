@@ -3,4 +3,4 @@
 * ok
 
 * this is master
-* new
+* this is a new line
