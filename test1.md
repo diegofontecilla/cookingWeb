@@ -12,7 +12,4 @@
 * andi
 * dany
 * bonnie
-* cami
-* nico
-* benja
-* ester
+
