@@ -4,3 +4,6 @@
 * fran
 * romeo
 * rita
+* mami
+* javi
+* mati
