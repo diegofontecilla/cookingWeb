@@ -7,3 +7,4 @@
 * mami
 * javi
 * mati
+* ro
