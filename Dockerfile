@@ -1,19 +1,20 @@
-FROM node:10
+FROM jenkins/jenkins:lts
 
-# Create app directory
-WORKDIR /app.js
+ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/casc_configs
+COPY --chown=jenkins:jenkins "jenkins_casc.yml" "${CASC_JENKINS_CONFIG}/jenkins.yaml"
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+COPY --chown=jenkins:jenkins "plugins.txt" "/usr/share/jenkins/plugins.txt"
 
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+USER root
 
-# Bundle app source
-COPY . .
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-EXPOSE 3000
-CMD [ "npm", "start" ]
+RUN chown -R jenkins /var/jenkins_home
+USER jenkins:jenkins
+
+COPY . /home/cookingwebapp
+
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt

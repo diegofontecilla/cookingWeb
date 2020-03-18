@@ -14,7 +14,7 @@
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
 
-## To build node image manually and deploy the cookingapp
+## To build node image manually and deploy the cookingapp in local environment
 
 * from root directory run:
   * `docker build -t fontecilla/cookingapp .`
