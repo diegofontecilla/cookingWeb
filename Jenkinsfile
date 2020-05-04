@@ -5,7 +5,8 @@ pipeline {
     stages {
         stage('Docker build') {
             steps {
-                sh 'docker build --file /home/cookingwebapp/app/Dockerfile --tag cookingwebapp:latest'
+                echo "This is going to work!"
+                // sh 'docker build --file /home/cookingwebapp/app/Dockerfile --tag cookingwebapp:latest'
             }
         }
     }
