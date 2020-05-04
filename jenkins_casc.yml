@@ -30,7 +30,7 @@ jobs:
       pipelineJob('cookingapp') {
           definition {
               cpsScm {
-                  scriptPath 'jenkins/Jenkinsfile'
+                  scriptPath 'Jenkinsfile'
                   scm {
                       git {
                           remote

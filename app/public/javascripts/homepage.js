@@ -8,9 +8,6 @@ $(document).ready(function(){
 
   function displayRecipes(ingredient) {
 
-      // let url = 'http://localhost:9292/'
-      // let params = ''
-
       let url = 'https://www.food2fork.com/api/search'
       let params = 'key=611435ce5a67fe17c25d250242fe3c6d&q=' + ingredient
 

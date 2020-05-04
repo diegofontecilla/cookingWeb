@@ -2,15 +2,16 @@
 
 ## Install dependencies
 
-* From root directory, run `npm install`
+* Open a terminal and from root directory run `npm install`
 
-## To run the app
+## Run the app locally
 
-* Open a terminal and go to the root directory of the project and run: `node app.js`
+* From `app` directory run `node app.js`
+* On browser go to `http://localhost:3000/`
 
 ## To build jenkins image and deploy jenkins in docker container
 
-* from jenkins/ run:
+* from `jenkins/` run:
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
 
@@ -33,6 +34,10 @@
 `https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/`
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
 * you nedd to run the first build manually
+
+## Pipeline stages flow
+
+![Stages flow](./diagrams/PipelineStageFlow.png)
 
 ## TODO
 
