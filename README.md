@@ -11,13 +11,13 @@
 
 ## To build jenkins image and deploy jenkins in docker container
 
-* from `jenkins/` run:
+* from root directory run:
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
 
 ## To build node image manually and deploy the cookingapp in local environment
 
-* from root directory run:
+* from directory run:
   * `docker build -t fontecilla/cookingapp .`
   * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
 
