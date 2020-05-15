@@ -2,18 +2,21 @@
 
 ## Install dependencies
 
-* Open a terminal and from root directory run `npm install`
+* Download the repo from [here](https://github.com/diegofontecilla/cookingWeb)
+* Open a terminal and from root directory of the repo run `npm install`
 
 ## Run the app locally
 
 * From `app` directory run `node app.js`
 * On browser go to `http://localhost:3000/`
 
-## To build jenkins image and deploy jenkins in docker container
+## Build Jenkins image and deploy Jenkins in Docker container
 
 * from root directory run:
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
+
+  * `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
 
 ## To build node image manually and deploy the cookingapp in local environment
 
@@ -41,6 +44,8 @@
 
 ## TODO
 
-* [x] on jenkins/plugins.txt, pin the nodejs plugin
-* [x] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dockerfile but it does not work.
-* [x] in the last step of the pipeline, save a artifact and store it in an artifact repo
+* [ ] modify diagram. the app container is outside Jenkins container. [read reference](https://medium.com/@manav503/how-to-build-docker-images-inside-a-jenkins-container-d59944102f30)
+* [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
+* [ ] on jenkins/plugins.txt, pin the nodejs plugin
+* [ ] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dockerfile but it does not work.
+* [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo
