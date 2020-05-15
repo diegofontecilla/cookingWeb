@@ -14,8 +14,6 @@
 
 * from root directory run:
   * `docker build -t myjenk .`
-  * `docker container run -d --name myjenkins --publish 8080:8080 myjenk:latest`
-
   * `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
 
 ## To build node image manually and deploy the cookingapp in local environment

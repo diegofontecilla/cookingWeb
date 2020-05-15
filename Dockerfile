@@ -27,7 +27,5 @@ COPY . /home/cookingwebapp
 
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
-
-
-
+WORKDIR /home/cookingwebapp/app
 

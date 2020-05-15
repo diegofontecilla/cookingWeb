@@ -7,8 +7,9 @@ pipeline {
             steps {
                 echo 'This is going to work!'
                 echo 'Now you need to instal docker in the jenkins container (myjenk)'
-                // sh 'docker build --file /home/cookingwebapp/app/Dockerfile --tag cookingwebapp:latest'
-                docker { image 'node:7-alpine' }
+                // como chucha executo el dockerfile dentro del jenkins container siendo que esta fuera del contexto, por la reputa madre 
+                // que lo mil pario!!!!
+                sh 'sudo docker build -t fontecilla/cookingapp .'
             }
         }
     }
