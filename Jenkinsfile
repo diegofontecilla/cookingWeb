@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([file(credentialsId: 'docker-pass-id', variable: 'docker-pass')]) {
+                withCredentials([string(credentialsId: 'docker-pass-id', variable: 'docker-pass')]) {
                     sh 'sudo docker push fontecilla/cookingapp'
                 }
             }
