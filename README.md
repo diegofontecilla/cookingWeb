@@ -31,8 +31,7 @@
 ## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
 
 * on the git repo, go to settings, webhooks and add a new webhook
-* if running jenkins container on localhost, follow this instructions:
-`https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/`
+* if running jenkins container on localhost, follow this [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
 * you nedd to run the first build manually
 
