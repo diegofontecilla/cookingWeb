@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "./node_modules/.bin/cypress run",
     "start": "node app.js"
   },
   "author": "Diego Fontecilla",
@@ -19,8 +18,5 @@
     "request": "^2.79.0",
     "browserify": "^13.1.0"
   },
-  "devDependencies": {
-    "cypress": "^4.0.2",
-    "mocha": "^7.0.1"
-  }
+  "devDependencies": {}
 }
