@@ -37,7 +37,7 @@ jobs:
                             {
                               url 'https://github.com/diegofontecilla/cookingWeb'
                             }
-                          branch '*/test7'
+                          branch '*/master'
                           extensions {}
                       }
                   }
