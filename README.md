@@ -41,6 +41,8 @@
 
 ## TODO
 
+* [ ] take out cypress
+* [ ] update configuration-as-code:1.35 to latest
 * [ ] modify diagram. the app container is outside Jenkins container. [read reference](https://medium.com/@manav503/how-to-build-docker-images-inside-a-jenkins-container-d59944102f30)
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
