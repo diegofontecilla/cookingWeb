@@ -41,6 +41,7 @@
 
 ## TODO
 
+* [ ] think in the design: how the new features are integrated in the cookingwebapp container
 * [ ] give Jenkins permissions to run docker commands
 * [ ] take out cypress (completely)
 * [ ] deploy cookingwebapp to an ec2 instance using ssh agent plugin. [see this](https://www.youtube.com/watch?v=gdbA3vR2eDs) at minute 28
