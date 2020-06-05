@@ -41,7 +41,9 @@
 
 ## TODO
 
-* [ ] take out cypress
+* [ ] give Jenkins permissions to run docker commands
+* [ ] take out cypress (completely)
+* [ ] deploy cookingwebapp to an ec2 instance using ssh agent plugin. [see this](https://www.youtube.com/watch?v=gdbA3vR2eDs) at minute 28
 * [ ] update configuration-as-code:1.35 to latest
 * [ ] modify diagram. the app container is outside Jenkins container. [read reference](https://medium.com/@manav503/how-to-build-docker-images-inside-a-jenkins-container-d59944102f30)
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
