@@ -22,5 +22,10 @@ pipeline {
                 sh "sudo docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest"
             }
         }
+        stage('Testing') {
+            steps {
+                sh 'echo hello world'
+            }
+        }
     }
 }

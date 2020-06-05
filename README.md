@@ -48,5 +48,4 @@
 * [ ] modify diagram. the app container is outside Jenkins container. [read reference](https://medium.com/@manav503/how-to-build-docker-images-inside-a-jenkins-container-d59944102f30)
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
-* [ ] i need to start the cookingapp inside the container in order to test is (`npm start`). i need to find a way of doing this. i did it on the container itself masnually and it works. i tryed doing it in the Dockerfile but it does not work.
 * [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo

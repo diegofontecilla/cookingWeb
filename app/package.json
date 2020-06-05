@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "./node_modules/.bin/cypress run"
   },
   "author": "Diego Fontecilla",
   "license": "ISC",
@@ -18,5 +19,7 @@
     "request": "^2.79.0",
     "browserify": "^13.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "cypress": "^4.0.2"
+  }
 }
