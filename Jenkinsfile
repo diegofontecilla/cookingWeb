@@ -1,6 +1,11 @@
 pipeline {
   agent any
     stages {
+        stage('SCM Checkout') {
+            steps {
+                git branch: 'test_webapp', credentialsId: 'github_key', url: 'https://github.com/diegofontecilla/cookingWeb'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 dir("/var/jenkins_home/app"){
