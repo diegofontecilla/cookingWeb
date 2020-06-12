@@ -10,7 +10,7 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY /var/jenkins_home/app/authorized_keys /usr/src/app/authorized_keys
+COPY /var/jenkins_home/app/authorized_keys /usr/src/app/
 
 # Bundle app source
 COPY . .
