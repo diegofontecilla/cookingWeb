@@ -41,6 +41,7 @@
 
 ## TODO
 
+* [ ] run tests in agent (thecookingwebapp container)
 * [ ] think in the design: how the new features are integrated in the cookingwebapp container
 * [ ] give Jenkins permissions to run docker commands
 * [ ] take out cypress (completely)

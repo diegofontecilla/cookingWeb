@@ -28,6 +28,13 @@ pipeline {
             }
         }
         stage('Testing') {
+            agent {
+                docker {
+                    image 'fontecilla/cookingapp'
+                    label 'docker'
+                }
+            }
+            // agent { label 'thecookingwebapp', docker 'fontecilla/cookingapp'}
             steps {
                 sh 'echo hello diego'
             }
