@@ -25,7 +25,7 @@ RUN apt-get update && \
 
 #ADD settings.xml /home/jenkins/.m2/
 # Copy authorized keys
-COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
+COPY /var/jenkins_home/app/authorized_keys /home/jenkins/.ssh/authorized_keys
 
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
@@ -33,7 +33,7 @@ RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
 # Standard SSH port
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["/usr/sbin/sshd", "-D"]
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
