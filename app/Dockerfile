@@ -10,10 +10,8 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY /var/jenkins_home/app/authorized_keys /usr/src/app/
-
 # Bundle app source
-COPY . .
+# COPY . .
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
