@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Testing') {
             steps {
-                sh 'echo hello world'
+                sh 'echo hello diego'
             }
         }
     }
