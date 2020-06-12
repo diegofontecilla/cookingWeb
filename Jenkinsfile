@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                dir("/var/jenkins_home/app"){
+                dir("/var/jenkins_home/workspace/cookingapp/app"){
                     sh "sudo docker build -t fontecilla/cookingapp ."
                 }
             }
