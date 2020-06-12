@@ -25,7 +25,7 @@ RUN apt-get update && \
 
 #ADD settings.xml /home/jenkins/.m2/
 # Copy authorized keys
-COPY /var/jenkins_home/app/authorized_keys /home/jenkins/.ssh/authorized_keys
+COPY /var/jenkins_home/app/.ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
 
 RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
     chown -R jenkins:jenkins /home/jenkins/.ssh/
