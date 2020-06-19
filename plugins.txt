@@ -15,4 +15,4 @@ slack:latest
 parameterized-trigger:latest
 copyartifact:latest
 htmlpublisher:latest
-configuration-as-code:1.35
+configuration-as-code:1.41

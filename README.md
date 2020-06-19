@@ -39,8 +39,13 @@
 
 ![Stages flow](./diagrams/PipelineStageFlow.png)
 
+## Trigger Jenkins builds by pushing to Github
+
+* Install the GitHub integration plugin
+
 ## TODO
 
+* [ ] Casc file is not getting configured automatically
 * [ ] run tests in agent (thecookingwebapp container). I need to setup the agent. see [this](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops) and [this](https://devopscube.com/docker-containers-as-build-slaves-jenkins/)
 * [ ] think in the design: how the new features are integrated in the cookingwebapp container
 * [ ] give Jenkins permissions to run docker commands
@@ -52,3 +57,4 @@
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
 * [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo
 * [ ] nothing else to do
+
