@@ -23,21 +23,21 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
-                sh 'sudo docker stop thecookingwebapp && sudo docker rm thecookingwebapp'
+                // sh 'sudo docker stop thecookingwebapp && sudo docker rm thecookingwebapp'
                 sh "sudo docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest"
             }
         }
-        stage('Testing') {
-            agent {
-                docker {
-                    image 'fontecilla/cookingapp'
-                    label 'docker'
-                }
-            }
-            // agent { label 'thecookingwebapp', docker 'fontecilla/cookingapp'}
-            steps {
-                sh 'echo hello diego'
-            }
-        }
+        // stage('Testing') {
+        //     agent {
+        //         docker {
+        //             image 'fontecilla/cookingapp'
+        //             label 'docker'
+        //         }
+        //     }
+        //     agent { label 'thecookingwebapp', docker 'fontecilla/cookingapp'}
+        //     steps {
+        //         sh 'echo hello diego'
+        //     }
+        // }
     }
 }
