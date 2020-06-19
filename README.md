@@ -18,20 +18,22 @@
 
 ## To build node image manually and deploy the cookingapp in local environment
 
-* from directory run:
+* from app directory run:
   * `docker build -t fontecilla/cookingapp .`
   * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
 
 ## Configure the `cookingapp` job manually
 
+* Install the GitHub integration plugin in Jenkins
 * on the jenkins UI, click on the `cookingapp` job and then on `configure`
-* check the box `GitHub project` and paste the url of the git repo
+* check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
 * under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
 
 ## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
 
-* on the git repo, go to settings, webhooks and add a new webhook
-* if running jenkins container on localhost, follow this [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
+* on the git repo, go to settings, webhooks and add a new webhook.
+[instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
+* if running jenkins container on localhost, follow this:
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
 * you nedd to run the first build manually
 
@@ -39,12 +41,10 @@
 
 ![Stages flow](./diagrams/PipelineStageFlow.png)
 
-## Trigger Jenkins builds by pushing to Github
-
-* Install the GitHub integration plugin
-
 ## TODO
 
+* [ ] in diagram, express that containers run in local machine, and docker, git and jfrog outside of it
+* [ ] Document all the depencies for running this project
 * [ ] Casc file is not getting configured automatically
 * [ ] run tests in agent (thecookingwebapp container). I need to setup the agent. see [this](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops) and [this](https://devopscube.com/docker-containers-as-build-slaves-jenkins/)
 * [ ] think in the design: how the new features are integrated in the cookingwebapp container
