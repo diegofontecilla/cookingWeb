@@ -23,8 +23,9 @@ RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN chown -R jenkins /var/jenkins_home
 USER jenkins:jenkins
 
-COPY /app /var/jenkins_home/app
+# COPY /app /var/jenkins_home/app
 
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
+# maybe I dont't need next line. test it
 WORKDIR /var/jenkins_home/app
