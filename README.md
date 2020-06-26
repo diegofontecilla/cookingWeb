@@ -3,7 +3,7 @@
 ## Install dependencies on mac machine
 
 * Install [Docker](https://docs.docker.com/docker-for-mac/install/)
-* You need to have a [GitHub](https://github.com/) account
+* You need to have a [GitHub](https://github.com/) account and a [DockerHub](https://www.docker.com/) account
 * Install git in your machine: `brew install git`
 * Download the repo from [here](https://github.com/diegofontecilla/cookingWeb) or...
   1. Open a terminal and move to a directory for storing the repo
@@ -22,6 +22,11 @@
 * On the jenkins UI, click on the `cookingapp` job and then on `configure`
 * Check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
 * Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
+* Configure DockerHub credentials for Jenkins
+  * Go to the `cookingapp`, `Configure`, `Pipeline`, on `Definition` choose `Pipeline script` and click `Pipeline Syntax`
+  * Choose `withCredentials: Bind credentials to variables`, create a `Secret Text`: 
+    * variable: `dockerHubPwd`
+    * id: `docker-pass-id`
 
 ## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
 
@@ -49,8 +54,8 @@
 
 ## TODO
 
+* [ ] Parameterize DockerHub account in Jenkinsfile
 * [ ] in diagram, express that containers run in local machine, and docker, git and jfrog outside of it
-* [ ] Document all the depencies for running this project
 * [ ] Casc file is not getting configured automatically
 * [ ] run tests in agent (thecookingwebapp container). I need to setup the agent. see [this](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops) and [this](https://devopscube.com/docker-containers-as-build-slaves-jenkins/)
 * [ ] think in the design: how the new features are integrated in the cookingwebapp container
@@ -62,4 +67,3 @@
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
 * [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo
-* [ ] test

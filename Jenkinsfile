@@ -1,15 +1,15 @@
 pipeline {
-  agent any
+    agent any
     stages {
         stage('SCM Checkout') {
             steps {
-                git branch: 'test_webapp', credentialsId: 'github_key', url: 'https://github.com/diegofontecilla/cookingWeb'
+                git branch: 'master', credentialsId: 'github_key', url: 'https://github.com/diegofontecilla/cookingWeb'
             }
         }
         stage('Build Docker Image') {
             steps {
-                dir("/var/jenkins_home/workspace/cookingapp/app"){
-                    sh "sudo docker build -t fontecilla/cookingapp ."
+                dir('/var/jenkins_home/workspace/cookingapp/app') {
+                    sh 'sudo docker build -t fontecilla/cookingapp .'
                 }
             }
         }
@@ -23,20 +23,21 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
+                sh 'sudo docker stop thecookingwebapp && sudo docker rm thecookingwebapp  || echo container does not exist'
                 sh 'sudo docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest'
             }
         }
-        // stage('Testing') {
-        //     agent {
-        //         docker {
-        //             image 'fontecilla/cookingapp'
-        //             label 'docker'
-        //         }
-        //     }
-        //     agent { label 'thecookingwebapp', docker 'fontecilla/cookingapp'}
-        //     steps {
-        //         sh 'echo hello diego'
-        //     }
-        // }
+    // stage('Testing') {
+    //     agent {
+    //         docker {
+    //             image 'fontecilla/cookingapp'
+    //             label 'docker'
+    //         }
+    //     }
+    //     agent { label 'thecookingwebapp', docker 'fontecilla/cookingapp'}
+    //     steps {
+    //         sh 'echo hello diego'
+    //     }
+    // }
     }
 }
