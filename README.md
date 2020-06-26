@@ -22,12 +22,12 @@
   * `docker build -t fontecilla/cookingapp .`
   * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
 
-## Configure the `cookingapp` job manually
+## Configure the Jenkins job `cookingapp` manually
 
 * Install the GitHub integration plugin in Jenkins
-* on the jenkins UI, click on the `cookingapp` job and then on `configure`
-* check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
-* under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
+* On the jenkins UI, click on the `cookingapp` job and then on `configure`
+* Check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
+* Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
 
 ## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
 
@@ -35,6 +35,7 @@
 [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
 * if running jenkins container on localhost, follow this:
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
+* before first job execution run `docker stop thecookingwebapp && sudo docker rm thecookingwebapp`
 * you nedd to run the first build manually
 
 ## Pipeline stages flow
