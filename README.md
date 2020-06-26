@@ -1,14 +1,14 @@
 # Welcome to the the cookingWeb app
 
-## Install dependencies
+## Install dependencies on mac machine
 
-* Download the repo from [here](https://github.com/diegofontecilla/cookingWeb)
-* Open a terminal and from root directory of the repo run `npm install`
-
-## Run the app locally
-
-* From `app` directory run `node app.js`
-* On browser go to `http://localhost:3000/`
+* Install [Docker](https://docs.docker.com/docker-for-mac/install/)
+* You need to have a [GitHub](https://github.com/) account
+* Install git in your machine: `brew install git`
+* Download the repo from [here](https://github.com/diegofontecilla/cookingWeb) or...
+  1. Open a terminal and move to a directory for storing the repo
+  1. Run `git clone https://github.com/diegofontecilla/cookingWeb.git`
+* On the terminal, move to the root directory of the repo and run `npm install`
 
 ## Build Jenkins image and deploy Jenkins in Docker container
 
@@ -16,15 +16,9 @@
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
 
-## To build node image manually and deploy the cookingapp in local environment
+## Configure the `cookingapp` Jenkins job manually
 
-* from app directory run:
-  * `docker build -t fontecilla/cookingapp .`
-  * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
-
-## Configure the Jenkins job `cookingapp` manually
-
-* Install the GitHub integration plugin in Jenkins
+* Go to `http://localhost:8080/` and sign up in Jenkins
 * On the jenkins UI, click on the `cookingapp` job and then on `configure`
 * Check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
 * Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
@@ -33,14 +27,25 @@
 
 * on the git repo, go to settings, webhooks and add a new webhook.
 [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
-* if running jenkins container on localhost, follow this:
+* when running jenkins container on localhost, follow this:
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
-* before first job execution run `docker stop thecookingwebapp && sudo docker rm thecookingwebapp`
-* you nedd to run the first build manually
+* before each job execution run `docker stop thecookingwebapp && sudo docker rm thecookingwebapp`
+* you nedd to run the first build manually. then, each commit to `master` will trigger job
 
 ## Pipeline stages flow
 
 ![Stages flow](./diagrams/PipelineStageFlow.png)
+
+## To build node image manually and deploy the cookingapp in local environment
+
+* from app directory run:
+  * `docker build -t fontecilla/cookingapp .`
+  * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
+
+## Run the app locally
+
+* From `app` directory run `node app.js`
+* On browser go to `http://localhost:3000/`
 
 ## TODO
 
@@ -57,4 +62,3 @@
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
 * [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo
-
