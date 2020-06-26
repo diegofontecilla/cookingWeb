@@ -34,7 +34,6 @@
 [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
 * when running jenkins container on localhost, follow this:
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
-* before each job execution run `docker stop thecookingwebapp && sudo docker rm thecookingwebapp`
 * you nedd to run the first build manually. then, each commit to `master` will trigger job
 
 ## Pipeline stages flow
