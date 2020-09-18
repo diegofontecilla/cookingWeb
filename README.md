@@ -12,7 +12,7 @@
 
 ## Build Jenkins image and deploy Jenkins in Docker container
 
-* from root directory run:
+* from root directory of the project run:
   * `docker build -t myjenk .`
   * `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
 
@@ -20,21 +20,29 @@
 
 * Go to `http://localhost:8080/` and sign up in Jenkins
 * On the jenkins UI, click on the `cookingapp` job and then on `configure`
-* Check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
+* Under General, check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
 * Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
 * Configure DockerHub credentials for Jenkins
   * Go to the `cookingapp`, `Configure`, `Pipeline`, on `Definition` choose `Pipeline script` and click `Pipeline Syntax`
-  * Choose `withCredentials: Bind credentials to variables`, create a `Secret Text`: 
-    * variable: `dockerHubPwd`
-    * id: `docker-pass-id`
+  * On `Sample Step` choose `withCredentials: Bind credentials to variables`
+    * on `Bindings` click `add` and choose `Secret text`
+      * set up variable => `dockerHubPwd`
+      * click `add` and choose `Jenkins`
+      * on `Kind` select `Secret text`
+      * under `Secret` paste your DockerHub password
+      * id: `docker-pass-id`
+      * description: `Docker hub password`
 
-## Configure `webhooks` on git to build the `cookingapp` job after updates (push) on repo
+## Configure `webhooks` on GitHub to build the `cookingapp` job after updates (push) on repo
 
-* on the git repo, go to settings, webhooks and add a new webhook.
+* on the GitHub repo, go to settings, webhooks and add a new webhook.
 [instructions](https://embeddedartistry.com/blog/2017/12/21/jenkins-kick-off-a-ci-build-with-github-push-notifications/)
 * when running jenkins container on localhost, follow this:
   * sign up on `ngrok` and follow instructions: `https://dashboard.ngrok.com/get-started`
-* you nedd to run the first build manually. then, each commit to `master` will trigger job
+  * on GitHub repo under settings/Webhooks, don't forget to add `/github-webhook/` at the
+  end of the URL given
+* you nedd to run the first build manually. then, each commit to `master` will trigger the
+cookingapp job
 
 ## Pipeline stages flow
 
