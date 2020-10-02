@@ -1,14 +1,40 @@
 # Welcome to the the cookingWeb app
 
+## Prerequisites
+
+* You need to have a [GitHub](https://github.com/) account and a [DockerHub](https://www.docker.com/) account
+
 ## Install dependencies on mac machine
 
 * Install [Docker](https://docs.docker.com/docker-for-mac/install/)
-* You need to have a [GitHub](https://github.com/) account and a [DockerHub](https://www.docker.com/) account
 * Install git in your machine: `brew install git`
 * Download the repo from [here](https://github.com/diegofontecilla/cookingWeb) or...
   1. Open a terminal and move to a directory for storing the repo
   1. Run `git clone https://github.com/diegofontecilla/cookingWeb.git`
 * On the terminal, move to the root directory of the repo and run `npm install`
+
+## Install dependencies on Amazon Linux 2 EC2 instance
+
+* Login your ec2 instance
+
+* To install Docker run
+  * `sudo amazon-linux-extras install docker`
+  * `sudo service docker start`
+  * `sudo usermod -a -G docker ec2-user` (find [here](https://sysadminxpert.com/solved-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) related docs for this)
+  * general [documentation](https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9)
+
+* To install git run:
+  * `sudo yum update -y`
+  * `sudo yum install git -y`
+  * `git version`
+  * general [documentation](https://cloudaffaire.com/how-to-install-git-in-aws-ec2-instance/)
+
+* To set up node.js run:
+  * `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
+  * `. ~/.nvm/nvm.sh`
+  * `nvm install node`
+  * `node -e "console.log('Running Node.js ' + process.version)"`
+  * general [documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html)
 
 ## Build Jenkins image and deploy Jenkins in Docker container
 
