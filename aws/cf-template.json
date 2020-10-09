@@ -1,0 +1,55 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "CookingEc2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": "t2.micro",
+                "KeyName": "cookingkeys",
+                "UserData": {
+                    "Fn::Base64": "/home/ec2-user/cookingWeb/aws/user-data.sh"
+                },
+                "ImageId": "ami-02d436db846393339",
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "AssociatePublicIpAddress": "true",
+                        "DeleteOnTermination": "true",
+                        "GroupSet": [
+                            {
+                                "Ref": "InstanceSecurityGroup"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "InstanceSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "VpcId": "vpc-39114143",
+                "GroupDescription": "Enable HTTP access",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8080",
+                        "ToPort": "8080",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "3000",
+                        "ToPort": "3000",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        }
+    }
+}

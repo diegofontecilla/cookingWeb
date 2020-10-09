@@ -1,30 +1,149 @@
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              description: "Docker hub password"
+              id: "docker-pass-id"
+              scope: GLOBAL
+              secret: "{AQAAABAAAAAQkGfjq+EqGFqCEpAUwejtsu8zs1YCI8Q3NdCpiX+S+Ts=}"
 jenkins:
-  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
-  mode: NORMAL
-  numExecutors: 1
-  quietPeriod: 5
-  securityRealm:
-    local:
-      allowsSignup: false
-  remotingSecurity:
-    enabled: true
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+    - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 1
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+        - id: "diego"
+          name: "diego totti"
+          properties:
+            - "apiToken"
+            - "myView"
+            - preferredProvider:
+                providerId: "default"
+            - "slack"
+            - "timezone"
+            - mailer:
+                emailAddress: "diego@totti.com"
+  slaveAgentPort: 50000
+  systemMessage: |+
+    Jenkins configured automatically by Jenkins Configuration as Code plugin
 
+  updateCenter:
+    sites:
+      - id: "default"
+        url: "https://updates.jenkins.io/update-center.json"
+  views:
+    - all:
+        name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  copyartifact:
+    mode: PRODUCTION
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: true
+  sSHD:
+    port: -1
 unclassified:
-  location:
-    url: https://ec09ea52.ngrok.io/
+  buildDiscarders:
+    configuredBuildDiscarders:
+      - "jobBuildDiscarder"
+  defaultFolderConfiguration:
+    healthMetrics:
+      - worstChildHealthMetric:
+          recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
+      Check console output at $BUILD_URL to view the results.
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+      - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://ec09ea52.ngrok.io/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalSettings:
+    failOnCorrupt: false
+    noAuthors: false
+    quietMode: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://ec09ea52.ngrok.io/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  slackNotifier:
+    botUser: false
+    sendAsText: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  upstream:
+    globalUpstreamFilterStrategy: UseOldest
 tool:
   git:
     installations:
       - home: "git"
         name: "Default"
-
 jobs:
   - script: >
       pipelineJob('cookingapp') {
@@ -37,11 +156,10 @@ jobs:
                             {
                               url 'https://github.com/diegofontecilla/cookingWeb'
                             }
-                          branch '*/master'
+                          branch '*/deploy_to_ec2'
                           extensions {}
                       }
                   }
               }
           }
       }
-

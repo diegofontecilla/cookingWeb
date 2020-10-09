@@ -4,7 +4,7 @@
 
 * You need to have a [GitHub](https://github.com/) account and a [DockerHub](https://www.docker.com/) account
 
-## Install dependencies on mac machine
+## Install dependencies on mac machine (to spin up Jenkins container in local machine)
 
 * Install [Docker](https://docs.docker.com/docker-for-mac/install/)
 * Install git in your machine: `brew install git`
@@ -13,7 +13,7 @@
   1. Run `git clone https://github.com/diegofontecilla/cookingWeb.git`
 * On the terminal, move to the root directory of the repo and run `npm install`
 
-## Install dependencies on Amazon Linux 2 EC2 instance
+## Install dependencies on Amazon Linux 2 EC2 instance (to spin up Jenkins container in AWS ec2 instance)
 
 * Login your ec2 instance
 
@@ -21,9 +21,10 @@
   * `sudo amazon-linux-extras install docker`
   * `sudo service docker start`
   * `sudo usermod -a -G docker ec2-user` (find [here](https://sysadminxpert.com/solved-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) related docs for this)
+  * logout and login of the ec2 instance
   * general [documentation](https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9)
 
-* To install git run:
+* To install git, run:
   * `sudo yum update -y`
   * `sudo yum install git -y`
   * `git version`
@@ -38,13 +39,32 @@
 
 ## Build Jenkins image and deploy Jenkins in Docker container
 
-* from root directory of the project run:
-  * `docker build -t myjenk .`
-  * `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
+* logged in on the ec2 instance, run `git clone https://github.com/diegofontecilla/cookingWeb.git`
+* ls to root dir of repo: `cd cookingWeb/`
+* build the image for Jenkins, run: `docker build -t myjenk .`
+* run the container for Jenkins, run: `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
 
-## Configure the `cookingapp` Jenkins job manually
+## Configure the `cookingapp` Jenkins job manually (LOCAL MACHINE)
 
 * Go to `http://localhost:8080/` and sign up in Jenkins
+* On the jenkins UI, click on the `cookingapp` job and then on `configure`
+* Under General, check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
+* Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
+* Configure DockerHub credentials for Jenkins
+  * Go to the `cookingapp`, `Configure`, `Pipeline`, on `Definition` choose `Pipeline script` and click `Pipeline Syntax`
+  * On `Sample Step` choose `withCredentials: Bind credentials to variables`
+    * on `Bindings` click `add` and choose `Secret text`
+      * set up variable => `dockerHubPwd`
+      * click `add` and choose `Jenkins`
+      * on `Kind` select `Secret text`
+      * under `Secret` paste your DockerHub password
+      * id: `docker-pass-id`
+      * description: `Docker hub password`
+
+## Configure the `cookingapp` Jenkins job manually (EC2 INSTANCE)
+
+* From AWS console, copy the public IPv4 address of your instance and paste it in a new browser (add `:8080` at the end)
+* Create a user
 * On the jenkins UI, click on the `cookingapp` job and then on `configure`
 * Under General, check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
 * Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
@@ -87,9 +107,17 @@ cookingapp job
 
 ## TODO
 
-* [ ] Parameterize DockerHub account in Jenkinsfile
+* [ ] update diagram
+* [ ] automate deployment of ec2 instance with ClodFormation. then move it to terraform
+* [ ] create vpc for ec2 instance
+* [ ] automated installation of software required in ec2 instance (docker, git, node)
+* [ ] automate creation of user for Jenkins with casc
+* [ ] automate provision of DockerHub credentials for Jenkins
+* [ ] run tests in an agent: 
+  * the Jenkins server (ec2 instance) respond on a specif port
+  * check that the website respond, front end test
+* [ ] create agent for running `cookingapp` job
 * [ ] in diagram, express that containers run in local machine, and docker, git and jfrog outside of it
-* [ ] Casc file is not getting configured automatically
 * [ ] run tests in agent (thecookingwebapp container). I need to setup the agent. see [this](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops) and [this](https://devopscube.com/docker-containers-as-build-slaves-jenkins/)
 * [ ] think in the design: how the new features are integrated in the cookingwebapp container
 * [ ] give Jenkins permissions to run docker commands
