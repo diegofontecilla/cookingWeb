@@ -3,10 +3,10 @@ credentials:
     domainCredentials:
       - credentials:
           - string:
-              description: "Docker hub password"
+              description: "DockerHub pws"
               id: "docker-pass-id"
               scope: GLOBAL
-              secret: "{AQAAABAAAAAQkGfjq+EqGFqCEpAUwejtsu8zs1YCI8Q3NdCpiX+S+Ts=}"
+              variable: "${/DockerHub/PWD}"
 jenkins:
   agentProtocols:
     - "JNLP4-connect"
