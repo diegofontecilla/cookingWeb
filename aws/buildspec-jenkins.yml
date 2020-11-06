@@ -1,0 +1,17 @@
+---
+version: 0.2
+env:
+  variables:
+    EXECUTOR_IMAGE_TAG: latest
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo "Hello Word"
+  build:
+    commands:
+
+  post_build:
+    commands:

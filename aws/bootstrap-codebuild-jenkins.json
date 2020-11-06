@@ -1,0 +1,170 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "GithubRepoUrl": {
+            "Type": "String",
+            "Default": "https://github.com/diegofontecilla/cookingWeb"
+        },
+        "BuildSpecYml": {
+            "Type": "String",
+            "Default": "aws/buildspec-jenkins.yml"
+        }
+    },
+    "Resources": {
+        "IAMP44BCO": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "Roles": [
+                    {
+                        "Ref": "IAMRCodeBuild"
+                    }
+                ],
+                "PolicyName": "codebuild-1",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Resource": [
+                                {
+                                    "Fn::GetAtt": [
+                                        "LogGroupCodeBuild",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::Join": [
+                                        ":",
+                                        [
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "LogGroupCodeBuild",
+                                                    "Arn"
+                                                ]
+                                            },
+                                            "*"
+                                        ]
+                                    ]
+                                }
+                            ],
+                            "Action": [
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "IAMP34SBC": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "Roles": [
+                    {
+                        "Ref": "IAMRCodeBuild"
+                    }
+                ],
+                "PolicyName": "codebuild-2",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "VisualEditor1",
+                            "Effect": "Allow",
+                            "Action": [
+                                "ssm:*",
+                                "ecr:GetLifecyclePolicyPreview",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:BatchGetImage",
+                                "ecr:DescribeImages",
+                                "ecr:GetAuthorizationToken",
+                                "ecr:ListTagsForResource",
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetRepositoryPolicy",
+                                "ecr:GetLifecyclePolicy",
+                                "ecr:*",
+                                "cloudformation:*",
+                                "ec2:*",
+                                "ecs:*",
+                                "iam:*",
+                                "route53:*",
+                                "elasticloadbalancing:*",
+                                "logs:*",
+                                "acm:*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                }
+            }
+        },
+        "JenkinsImageBuilder": {
+            "Type": "AWS::CodeBuild::Project",
+            "Properties": {
+                "Name": "bootstrap-codebuild-jenkins",
+                "Artifacts": {
+                    "Type": "NO_ARTIFACTS"
+                },
+                "ServiceRole": {
+                    "Fn::GetAtt": [
+                        "IAMRCodeBuild",
+                        "Arn"
+                    ]
+                },
+                "QueuedTimeoutInMinutes": 60,
+                "Environment": {
+                    "Type": "LINUX_CONTAINER",
+                    "ComputeType": "BUILD_GENERAL1_MEDIUM",
+                    "Image": "aws/codebuild/standard:2.0",
+                    "ImagePullCredentialsType": "CODEBUILD",
+                    "PrivilegedMode": true,
+                    "EnvironmentVariables": []
+                },
+                "Source": {
+                    "Type": "GITHUB",
+                    "Location": {
+                        "Ref": "GithubRepoUrl"
+                    },
+                    "BuildSpec": {
+                        "Ref": "BuildSpecYml"
+                    }
+                },
+                "LogsConfig": {
+                    "CloudWatchLogs": {
+                        "GroupName": {
+                            "Ref": "LogGroupCodeBuild"
+                        },
+                        "StreamName": "AMI_Builder",
+                        "Status": "ENABLED"
+                    }
+                }
+            }
+        },
+        "IAMRCodeBuild": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "*"
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "LogGroupCodeBuild": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+                "LogGroupName": "/jenkins-stack/core/jenkins"
+            }
+        }
+    }
+}

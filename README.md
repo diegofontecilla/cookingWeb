@@ -18,7 +18,7 @@
 * Login your ec2 instance
 
 * To install Docker run
-  * `sudo amazon-linux-extras install docker`
+  * `sudo amazon-linux-extras install docker -y`
   * `sudo service docker start`
   * `sudo usermod -a -G docker ec2-user` (find [here](https://sysadminxpert.com/solved-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) related docs for this)
   * logout and login of the ec2 instance
@@ -109,7 +109,6 @@ cookingapp job
 
 * [ ] update diagram
 * [ ] automate deployment of ec2 instance with ClodFormation. then move it to terraform
-* [ ] create vpc for ec2 instance
 * [ ] automated installation of software required in ec2 instance (docker, git, node)
 * [ ] automate creation of user for Jenkins with casc
 * [ ] automate provision of DockerHub credentials for Jenkins

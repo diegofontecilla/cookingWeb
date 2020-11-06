@@ -7,9 +7,11 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "cookingkeys",
                 "UserData": {
-                    "Fn::Base64": "/home/ec2-user/cookingWeb/aws/user-data.sh"
+                    "Fn::Base64": {
+                        "Fn::Sub": "#!/bin/bash\namazon-linux-extras install docker -y\nservice docker start\nusermod -a -G docker ec2-user\nyum update -y\nyum install git -y\ngit version\ncurl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash\n. ~/.nvm/nvm.sh\nnvm install node"
+                    }
                 },
-                "ImageId": "ami-02d436db846393339",
+                "ImageId": "ami-0947d2ba12ee1ff75",
                 "NetworkInterfaces": [
                     {
                         "DeviceIndex": "0",
@@ -46,6 +48,18 @@
                         "IpProtocol": "tcp",
                         "FromPort": "3000",
                         "ToPort": "3000",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "443",
+                        "ToPort": "443",
                         "CidrIp": "0.0.0.0/0"
                     }
                 ]
