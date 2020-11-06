@@ -10,9 +10,9 @@ phases:
   pre_build:
     commands:
       - echo ${EC2_RSA_PRIVATE_KEY} > /home/my_key.txt
-      # - ssh -tt /home/my_key.txt ec2-user@ec2-18-212-179-1.compute-1.amazonaws.com
+      - ssh -T /home/my_key.txt ec2-user@ec2-18-212-179-1.compute-1.amazonaws.com
   build:
     commands:
-      # - git clone https://github.com/diegofontecilla/cookingWeb.git
+      - git clone https://github.com/diegofontecilla/cookingWeb.git
   post_build:
     commands:
