@@ -3,19 +3,16 @@ version: 0.2
 env:
   parameter-store:
     EC2_RSA_PRIVATE_KEY: /EC2/RSA/PrivateKey
-  variables:
-    EXECUTOR_IMAGE_TAG: latest
 phases:
   install:
     runtime-versions:
       docker: 18
   pre_build:
     commands:
-      - echo "Hello Word"
-      - echo ${EC2_RSA_PRIVATE_KEY}
-      # - ssh -i ${EC2_RSA_PRIVATE_KEY} ec2-user@ec2-18-212-179-1.compute-1.amazonaws.com
+      - echo ${EC2_RSA_PRIVATE_KEY} > ~/tmp/my_key
+      - ssh -i ~/tmp/my_key ec2-user@ec2-18-212-179-1.compute-1.amazonaws.com
   build:
     commands:
-      # - git clone https://github.com/diegofontecilla/cookingWeb.git
+      - git clone https://github.com/diegofontecilla/cookingWeb.git
   post_build:
     commands:
