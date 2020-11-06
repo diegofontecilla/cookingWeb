@@ -1,6 +1,8 @@
 ---
 version: 0.2
 env:
+  parameter-store:
+    EC2_RSA_PRIVATE_KEY: /EC2/RSA/PrivateKey
   variables:
     EXECUTOR_IMAGE_TAG: latest
 phases:
@@ -10,8 +12,9 @@ phases:
   pre_build:
     commands:
       - echo "Hello Word"
+      - ssh -i ${EC2_RSA_PRIVATE_KEY} ec2-user@ec2-18-212-179-1.compute-1.amazonaws.com
   build:
     commands:
-
+      - git clone https://github.com/diegofontecilla/cookingWeb.git
   post_build:
     commands:
