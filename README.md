@@ -4,32 +4,15 @@
 
 * You need to have a [GitHub](https://github.com/) account and a [DockerHub](https://www.docker.com/) account
 
-## Install dependencies on mac machine (to spin up Jenkins container in local machine)
+## Deploy Jenkins Infrastructure
 
-* Install [Docker](https://docs.docker.com/docker-for-mac/install/)
-* Install git in your machine: `brew install git`
-* Download the repo from [here](https://github.com/diegofontecilla/cookingWeb) or...
-  1. Open a terminal and move to a directory for storing the repo
-  1. Run `git clone https://github.com/diegofontecilla/cookingWeb.git`
-* On the terminal, move to the root directory of the repo and run `npm install`
+* Login in a AWS account.
+* In CloudFormation, manually deploy `aws/cf-template.json`. This will create an EC2 instance for Jenkins. Docker and git will be already installed in the instance.
+* In CloudFormation, manually deploy `aws/bootstrap-codebuild-jenkins.json`. This will create a CodeBuild job that will clone the git repo `https://github.com/diegofontecilla/cookingWeb.git`
 
-## Install dependencies on Amazon Linux 2 EC2 instance (to spin up Jenkins container in AWS ec2 instance)
+## Install node on EC2 instance (MAYBE NOT NECESSARY)
 
 * Login your ec2 instance
-
-* To install Docker run
-  * `sudo amazon-linux-extras install docker -y`
-  * `sudo service docker start`
-  * `sudo usermod -a -G docker ec2-user` (find [here](https://sysadminxpert.com/solved-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) related docs for this)
-  * logout and login of the ec2 instance
-  * general [documentation](https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9)
-
-* To install git, run:
-  * `sudo yum update -y`
-  * `sudo yum install git -y`
-  * `git version`
-  * general [documentation](https://cloudaffaire.com/how-to-install-git-in-aws-ec2-instance/)
-
 * To set up node.js run:
   * `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
   * `. ~/.nvm/nvm.sh`
@@ -107,7 +90,7 @@ cookingapp job
 
 ## TODO
 
-* [ ] update diagram
+* [ ] improve name of CF templates
 * [ ] automate deployment of ec2 instance with ClodFormation. then move it to terraform
 * [ ] automated installation of software required in ec2 instance (docker, git, node)
 * [ ] automate creation of user for Jenkins with casc
