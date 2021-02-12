@@ -61,6 +61,7 @@ cookingapp job
 
 ## TODO
 
+* [ ] toto
 * [ ] Parameterize DockerHub account in Jenkinsfile
 * [ ] in diagram, express that containers run in local machine, and docker, git and jfrog outside of it
 * [ ] Casc file is not getting configured automatically
