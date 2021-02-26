@@ -15,16 +15,27 @@ jenkins:
     standard:
       excludeClientIPFromCrumb: false
 
-unclassified:
+      unclassified:
   location:
-    url: https://ec09ea52.ngrok.io/
+    url: https://079f55ddbeea.ngrok.io/github-webhook/
 
-tool:
+    tool:
   git:
     installations:
       - home: "git"
         name: "Default"
-
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          scope: GLOBAL
+          id: "docker-pass-id"
+          username: "fontecilla"
+          password: "x"
+      domain:
+        name: "dockerhub.com"
+        description: "DockerHub"
 jobs:
   - script: >
       pipelineJob('cookingapp') {

@@ -1,0 +1,33 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "ECSCluster": {
+            "Type": "AWS::ECS::Cluster"
+        },
+        "ECSService": {
+            "Type": "AWS::ECS::Service",
+            "Properties": {
+                "Cluster": {
+                    "Ref": "ECSCluster"
+                },
+                "DesiredCount": 1,
+                "TaskDefinition": {
+                    "Ref": "ECSTaskDefinition"
+                }
+            }
+        },
+        "ECSTaskDefinition": {
+            "Type": "AWS::ECS::TaskDefinition",
+            "Properties": {
+                "Cpu": 512,
+                "Memory": 1024,
+                "ContainerDefinitions": [
+                    {
+                        "Name": "MyFirstContainerDef",
+                        "Image": "fontecilla/cookingapp:latest"
+                    }
+                ]
+            }
+        }
+    }
+}
