@@ -8,7 +8,7 @@
 
 * Login in a AWS account.
 * In CloudFormation, manually deploy `aws/cf-template.json`. This will create an EC2 instance for Jenkins. Docker and git will be already installed in the instance.
-* In CloudFormation, manually deploy `aws/bootstrap-codebuild-jenkins.json`. This will create a CodeBuild job that will clone the git repo `https://github.com/diegofontecilla/cookingWeb.git`
+* In CloudFormation, manually deploy `aws/bootstrap-codebuild-jenkins.json`. This will create a CodeBuild job that will clone the git repo `https://github.com/diegofontecilla/cookingWeb.git` in the EC2 instance.
 
 ## Install node on EC2 instance (MAYBE NOT NECESSARY)
 
@@ -22,27 +22,11 @@
 
 ## Build Jenkins image and deploy Jenkins in Docker container
 
-* logged in on the ec2 instance, run `git clone https://github.com/diegofontecilla/cookingWeb.git`
+* [ ] The following steps should be moved into the CodeBuild job
+* log in on the ec2 instance, run `git clone https://github.com/diegofontecilla/cookingWeb.git`
 * ls to root dir of repo: `cd cookingWeb/`
-* build the image for Jenkins, run: `docker build -t myjenk .`
-* run the container for Jenkins, run: `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock myjenk:latest`
-
-## Configure the `cookingapp` Jenkins job manually (LOCAL MACHINE)
-
-* Go to `http://localhost:8080/` and sign up in Jenkins
-* On the jenkins UI, click on the `cookingapp` job and then on `configure`
-* Under General, check the box `GitHub project` and paste the url of the git repo `https://github.com/diegofontecilla/cookingWeb`
-* Under `Build Triggers`, check `GitHub hook trigger for GITScm polling` and save
-* Configure DockerHub credentials for Jenkins
-  * Go to the `cookingapp`, `Configure`, `Pipeline`, on `Definition` choose `Pipeline script` and click `Pipeline Syntax`
-  * On `Sample Step` choose `withCredentials: Bind credentials to variables`
-    * on `Bindings` click `add` and choose `Secret text`
-      * set up variable => `dockerHubPwd`
-      * click `add` and choose `Jenkins`
-      * on `Kind` select `Secret text`
-      * under `Secret` paste your DockerHub password
-      * id: `docker-pass-id`
-      * description: `Docker hub password`
+* build the image for Jenkins, run: `docker build -t fontecilla/myjenk .`
+* run the container for Jenkins, run: `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock fontecilla/myjenk:latest`
 
 ## Configure the `cookingapp` Jenkins job manually (EC2 INSTANCE)
 
@@ -77,19 +61,15 @@ cookingapp job
 
 ![Stages flow](./diagrams/PipelineStageFlow.png)
 
-## To build node image manually and deploy the cookingapp in local environment
-
-* from app directory run:
-  * `docker build -t fontecilla/cookingapp .`
-  * `docker container run -d --name thecookingwebapp --publish 3000:3000 fontecilla/cookingapp:latest`
-
-## Run the app locally
-
-* From `app` directory run `node app.js`
-* On browser go to `http://localhost:3000/`
-
 ## TODO
 
+* [ ] in the casc include dockerHub credentials
+* [ ] In casc create Jenkins user. When deployed (Jenkins) it should login using that user automatically
+* [ ] In the casc I need to specify a URL and stop using `ngrok`. Probably I need to create a load balancer and use that for the Jenkins URL in the casc, line 124. See how this is resolved in curly. Yes, that is correct, use load balancer name for the url in the casc.
+* [ ] deploy Jenkins container with AWS ECS
+* [ ] deploy ECS (cluster, job definition, service, etc) using Cloud Formation
+* [ ] solve plugins update in Jenkins image. line is comment out
+* [ ] create Jenkins ec2 image using [ec2 image buider](https://www.google.com/search?q=create+customized+ec2+instance+in+ec2+image+builder+on+aws&oq=create+customized+ec2+instance+in+ec2+image+builder+on+aws&aqs=chrome..69i57.20786j0j7&sourceid=chrome&ie=UTF-8#kpvalbx=_GzDBX8S8Ndyi1fAP156X0AI14)
 * [ ] improve name of CF templates
 * [ ] automate deployment of ec2 instance with ClodFormation. then move it to terraform
 * [ ] automated installation of software required in ec2 instance (docker, git, node)
