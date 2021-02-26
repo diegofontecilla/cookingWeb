@@ -75,6 +75,6 @@ cookingapp job
 * [ ] update Docker version (docker installed inside Jenkins container) on Jenkins image
 * [ ] on jenkins/plugins.txt, pin the nodejs plugin
 * [ ] in the last step of the pipeline, save a artifact and store it in an artifact repo
-* [ ] toto
+
 
 
