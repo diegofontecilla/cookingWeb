@@ -1,4 +1,5 @@
-FROM jenkins/jenkins:2.282
+FROM jenkins/jenkins:2.235.5-lts
+
 ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/casc_configs
 COPY --chown=jenkins:jenkins "jenkins_casc.yml" "${CASC_JENKINS_CONFIG}/jenkins.yaml"
 
