@@ -7,8 +7,8 @@ jenkins:
     local:
       allowsSignup: false
       users:
-      - id: "diego"
-        password: "1234"
+      - id: "foo"
+        password: "${my-password}"
   remotingSecurity:
     enabled: true
   authorizationStrategy:
