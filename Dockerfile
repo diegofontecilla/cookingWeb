@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:2.235.5-lts
 
 ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/casc_configs
 COPY --chown=jenkins:jenkins "jenkins_casc.yml" "${CASC_JENKINS_CONFIG}/jenkins.yaml"
@@ -8,9 +8,10 @@ COPY --chown=jenkins:jenkins "plugins.txt" "/usr/share/jenkins/plugins.txt"
 USER root
 
 RUN apt-get update -qq \
-      && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common \
-      && apt-get install -y sudo \
-      && rm -rf /var/lib/apt/lists/*
+    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common \
+    && apt-get install -y sudo \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -23,9 +24,8 @@ RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN chown -R jenkins /var/jenkins_home
 USER jenkins:jenkins
 
-# COPY /app /var/jenkins_home/app
-
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
-# maybe I dont't need next line. test it
 WORKDIR /var/jenkins_home/app
+COPY /app /var/jenkins_home/app
+

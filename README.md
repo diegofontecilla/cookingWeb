@@ -12,7 +12,8 @@
 
 ## Install node on EC2 instance (MAYBE NOT NECESSARY)
 
-* Login your ec2 instance
+* Login your ec2 instance: `ssh -i [PRIVATE_KEY] ec2-user@[PUBLIC_IP_ADDRESS]', eg.:
+`ssh -i ~/.ssh/cookingkeys.pem ec2-user@3.86.244.98`
 * To set up node.js run:
   * `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
   * `. ~/.nvm/nvm.sh`
@@ -23,7 +24,17 @@
 ## Build Jenkins image and deploy Jenkins in Docker container
 
 * [ ] The following steps should be moved into the CodeBuild job
-* log in on the ec2 instance, run `git clone https://github.com/diegofontecilla/cookingWeb.git`
+* Install git and Docker in case they aren't installed:
+  * `sudo yum update -y`
+  * `sudo yum install git -y`
+  * `git version`
+  * `sudo amazon-linux-extras install docker -y`
+  * `sudo yum install docker -y`
+  * `sudo service docker start`
+  * `sudo usermod -a -G docker ec2-user`
+  * exit and login in the ec2
+  * `docker --version`
+* on the ec2 instance, run `git clone https://github.com/diegofontecilla/cookingWeb.git`
 * ls to root dir of repo: `cd cookingWeb/`
 * build the image for Jenkins, run: `docker build -t fontecilla/myjenk .`
 * run the container for Jenkins, run: `docker container run -d --name myjenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock fontecilla/myjenk:latest`
@@ -63,7 +74,10 @@ cookingapp job
 
 ## TODO
 
-* [ ] in the casc include dockerHub credentials
+* [ ] Pre install [plugins](https://dev.to/rubiin/custom-jenkins-images-with-plugins-pre-installed-1pok)
+* [ ] See (CasC)[https://github.com/search?p=1&q=jenkins+casc&type=Repositories] exmaples
+* [ ] Encrypt passwords in CasC (use AWS SSM Parameter Store. [How](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc) to link Jenkins and AWS?)
+* [ ] Automate job to build trigger with `GitHub hook trigger for GITScm polling`
 * [ ] In casc create Jenkins user. When deployed (Jenkins) it should login using that user automatically
 * [ ] In the casc I need to specify a URL and stop using `ngrok`. Probably I need to create a load balancer and use that for the Jenkins URL in the casc, line 124. See how this is resolved in curly. Yes, that is correct, use load balancer name for the url in the casc.
 * [ ] deploy Jenkins container with AWS ECS

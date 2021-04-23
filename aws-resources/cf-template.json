@@ -10,15 +10,27 @@
                 "NetworkInterfaces": [
                     {
                         "DeviceIndex": "0",
-                        "AssociatePublicIpAddress": "true",
-                        "DeleteOnTermination": "true",
+                        "AssociatePublicIpAddress": true,
+                        "DeleteOnTermination": true,
                         "GroupSet": [
                             {
                                 "Ref": "InstanceSecurityGroup"
                             }
                         ]
                     }
-                ]
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash",
+                                "yum update -y",
+                                "yum install git -y"
+                            ]
+                        ]
+                    }
+                }
             }
         },
         "InstanceSecurityGroup": {
@@ -29,32 +41,32 @@
                 "SecurityGroupIngress": [
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "22",
-                        "ToPort": "22",
+                        "FromPort": 22,
+                        "ToPort": 22,
                         "CidrIp": "0.0.0.0/0"
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "8080",
-                        "ToPort": "8080",
+                        "FromPort": 8080,
+                        "ToPort": 8080,
                         "CidrIp": "0.0.0.0/0"
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "3000",
-                        "ToPort": "3000",
+                        "FromPort": 3000,
+                        "ToPort": 3000,
                         "CidrIp": "0.0.0.0/0"
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "80",
-                        "ToPort": "80",
+                        "FromPort": 80,
+                        "ToPort": 80,
                         "CidrIp": "0.0.0.0/0"
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "443",
-                        "ToPort": "443",
+                        "FromPort": 443,
+                        "ToPort": 443,
                         "CidrIp": "0.0.0.0/0"
                     }
                 ]
